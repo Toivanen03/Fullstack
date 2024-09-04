@@ -5,8 +5,10 @@ const Course = ({ course }) => {
         ...part,
         id: index +1
     }))
-    const totalExercises = course.parts.reduce((total, part) =>
-        total + part.exercises, 0)
+    const totalExercises = course.parts.reduce((total, part) => {
+        console.log("What is happening", total, part)
+        return total + part.exercises
+    },0 )
 
     return (
         <div>
