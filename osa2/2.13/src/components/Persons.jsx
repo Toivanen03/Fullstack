@@ -5,7 +5,7 @@ const Persons = ({ persons }) => {
           <li key={index}>{person.name} {person.number}</li>
         ))}
       </ul>
-    )
-  }
+    );
+  };
   
-  export default Persons  
+  export default Persons;  

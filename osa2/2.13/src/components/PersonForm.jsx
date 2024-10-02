@@ -1,11 +1,11 @@
 const PersonForm = ({ newName, newNumber, addPerson, setNewName, setNewNumber }) => {
     const addName = (event) => {
-      setNewName(event.target.value)
-    }
+      setNewName(event.target.value);
+    };
   
     const addNumber = (event) => {
-      setNewNumber(event.target.value)
-    }
+      setNewNumber(event.target.value);
+    };
   
     return (
       <form onSubmit={addPerson}>
@@ -17,8 +17,8 @@ const PersonForm = ({ newName, newNumber, addPerson, setNewName, setNewNumber })
         </div>
         <button type="submit">add</button>
       </form>
-    )
-  }
+    );
+  };
   
-  export default PersonForm
+  export default PersonForm;
   

@@ -1,4 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -10,6 +14,12 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState('')
+
+  useEffect(() => {
+    personService.getAll().then(initialPersons => {
+      setPersons(initialPersons)
+    })
+  }, [])
 
   const addPerson = event => {
     event.preventDefault()
@@ -27,17 +37,17 @@ const App = () => {
       number: newNumber,
     }
 
-  setPersons(persons.concat(personObject))
-  setNewName('')
-  setNewNumber('')
-  }
-
-  const addName = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const addNumber = (event) => {
-    setNewNumber(event.target.value)
+    personService
+      .create(personObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+        setNewNumber('')
+      })
+      .catch(error => {
+        console.error('Error adding person:', error)
+        alert('Virhe henkilön lisäämisessä')
+      })
   }
 
   const filter = (event) => {
@@ -51,27 +61,19 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={addPerson}>
-      <div>Filter: <input value={search} onChange={filter}/></div>
-      <h2>Add new</h2>
-        <div>
-          <div>name: <input value={newName} onChange={addName}/></div>
-          <div>number: <input value={newNumber} onChange={addNumber}/></div>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-      {filteredPersons.map((person, index) => (
-          <li key={index}>{person.name} {person.number}</li>
-        ))}
-      </ul>
-      <div>debug: {newName} {newNumber}</div>
+      <Filter search={search} onFilter={filter} />
+      <h3>Add a new</h3>
+      <PersonForm 
+        newName={newName}
+        newNumber={newNumber}
+        addPerson={addPerson}
+        setNewName={setNewName}
+        setNewNumber={setNewNumber}
+      />
+      <h3>Numbers</h3>
+      <Persons persons={filteredPersons} />
     </div>
   )
-
 }
 
 export default App
