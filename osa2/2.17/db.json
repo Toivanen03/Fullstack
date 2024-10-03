@@ -1,0 +1,24 @@
+{
+  "persons": [
+    {
+      "id": "5ebb",
+      "name": "Einari",
+      "number": "444"
+    },
+    {
+      "id": "cf71",
+      "name": "Matias",
+      "number": "666"
+    },
+    {
+      "id": "7ce8",
+      "name": "Viljami",
+      "number": "333"
+    },
+    {
+      "id": "9be3",
+      "name": "Esko",
+      "number": "555"
+    }
+  ]
+}
