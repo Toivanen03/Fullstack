@@ -1,0 +1,11 @@
+{
+  "name": "3.12",
+  "version": "1.0.0",
+  "main": "mongo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Simo Toivanen",
+  "license": "ISC",
+  "description": ""
+}

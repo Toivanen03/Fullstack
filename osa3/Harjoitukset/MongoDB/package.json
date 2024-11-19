@@ -1,0 +1,13 @@
+{
+  "name": "mongodb",
+  "version": "1.0.0",
+  "main": "mongo.js",
+  "scripts": {
+    "start": "node mongo.js N0Rthst4t3!",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
