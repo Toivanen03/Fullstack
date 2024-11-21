@@ -83,7 +83,7 @@ app.post('/api/people', (request, response, next) => {
     .catch (error => next(error))
 })
 
-app.put('api/people/:id', (request, response, next) => {
+app.put('/api/people/:id', (request, response, next) => {
   const body = request.body
   const person = {
     name: body.name,

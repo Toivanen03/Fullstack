@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/people/673f434708a8802fbcde795f
+Content-Type: application/json
+
+{
+    "name": "Arnold Schwarzenegger",
+    "number": "808"
+}
