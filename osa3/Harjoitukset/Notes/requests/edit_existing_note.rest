@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/notes/673cc02f3f6c0bc22636e033
+Content-Type: application/json
+
+{
+    "content": "Muokattu muistiinpano",
+    "important": true
+}

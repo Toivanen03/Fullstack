@@ -1,13 +1,14 @@
 import React from 'react'
-import personService from '../services/persons'
+import personService from '../services/people'
+import PersonForm from './PersonForm'
 
-const Persons = ({ persons, setPersons, showNotification }) => {
+const People = ({ people, setPeople, showNotification }) => {
   const handleDelete = (id) => {
-    const nameToDelete = persons.find(person => person.id === id)
+    const nameToDelete = people.find(person => person.id === id)
     if (window.confirm('Haluatko varmasti poistaa tämän yhteystiedon?')) {
       personService.remove(id)
         .then(() => {
-          setPersons(persons.filter(person => person.id !== id))
+          setPeople(people.filter(person => person.id !== id))
           showNotification(`Henkilön ${nameToDelete.name} yhteystieto poistettu`)
         })
         .catch(error => {
@@ -18,7 +19,7 @@ const Persons = ({ persons, setPersons, showNotification }) => {
 
   return (
     <ul>
-      {persons.map((person) => (
+      {people.map((person) => (
         <li key={person.id}>
           {person.name} {person.number}
           <button onClick={() => handleDelete(person.id)}>Poista</button>
@@ -28,4 +29,4 @@ const Persons = ({ persons, setPersons, showNotification }) => {
   )
 }
 
-export default Persons
+export default People

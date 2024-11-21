@@ -2,6 +2,6 @@ POST http://localhost:3001/api/notes
 Content-Type: application/json
 
 {
-    "content": "Uusi muistiinpano",
+    "content": "Toinen uusi muistiinpano",
     "important": true
 }
