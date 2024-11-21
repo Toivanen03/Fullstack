@@ -2,6 +2,6 @@ POST http://localhost:3001/api/people
 Content-Type: application/json
 
 {
-    "name": "Mahatma Gandhi",
+    "name": "Kunta Kinte",
     "number": "1112223"
 }
