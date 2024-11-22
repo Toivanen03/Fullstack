@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build:ui": "rm -rf dist && cd ./osa2/Harjoitukset && npm run build && cp -r dist ../osa3/Harjoitukset",
+    "build:ui": "rm -rf dist && cd ../Harjoitukset/Notes && npm run build && cp -r dist ../Harjoitukset/Notes",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
