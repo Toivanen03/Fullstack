@@ -28,7 +28,7 @@ app.get('/api/notes', (request, response) => {
   })
 })
 
-app.delete('/api/notes/:id', (request, response) => {
+app.delete('/api/notes/:id', (request, response, next) => {
   const id = request.params.id
   Note.findByIdAndDelete(id)
     .then(result => {
@@ -41,29 +41,29 @@ app.delete('/api/notes/:id', (request, response) => {
 
 app.get('/api/notes/:id', (request, response, next) => {
   Note.findById(request.params.id)
-  .then(note => {
-    if (note) {
-      response.json(note)
-    } else {
-      response.status(404).send({ error: 'Note not found' })
-    }
-  })
+    .then(note => {
+      if (note) {
+        response.json(note)
+      } else {
+        response.status(404).send({ error: 'Note not found' })
+      }
+    })
     .catch(error => next(error))
 })
-  
+
 app.post('/api/notes', (request, response, next) => {
   const body = request.body
-  
+
   const note = new Note({
     content: body.content,
     important: body.important || false,
   })
-  
+
   note.save()
-  .then(savedNote => {
-    response.json(savedNote)
-  })
-  .catch(error => next(error))
+    .then(savedNote => {
+      response.json(savedNote)
+    })
+    .catch(error => next(error))
 })
 
 app.put('/api/notes/:id', (request, response, next) => {
