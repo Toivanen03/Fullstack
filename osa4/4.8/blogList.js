@@ -1,5 +1,6 @@
 const app = require('./app')
 const config = require('./utils/config')
+require('dotenv').config()
 const logger = require('./utils/logger')
 
 const PORT = process.env.PORT
