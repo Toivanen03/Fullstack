@@ -1,0 +1,26 @@
+{
+  "name": "4.1",
+  "version": "1.0.0",
+  "main": "blogList.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node blogList.js",
+    "dev": "cross-env NODE_ENV=development nodemon blogList.js",
+    "dev:test": "cross-env NODE_ENV=test nodemon blogList.js",
+    "test": "cross-env NODE_ENV=test node --test"
+  },
+  "author": "Simo Toivanen",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-async-errors": "^3.1.1",
+    "lodash": "^4.17.21",
+    "supertest": "^7.0.0"
+  }
+}
