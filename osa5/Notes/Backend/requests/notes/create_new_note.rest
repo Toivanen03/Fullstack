@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RpIFRhdW5vIiwiaWQiOiI2NzQ4NmMwYmM5NzU2MTVlNTk3ZTBkMDkiLCJpYXQiOjE3MzI3OTk4NTl9.o_WXgOsIPPr6VyaVftpxdzrvNNHh5nedCORFieW6Q1s
+
+{
+    "content": "Testimuistiinpano kirjauduttuna",
+    "important": true
+}

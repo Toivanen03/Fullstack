@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hc2EiLCJpZCI6IjY3NGQ2ZmJkOGU3ZDg0NDZjNTQ4ZDQ2ZSIsImlhdCI6MTczMzEyODIzNX0.dnAe3UEsEtCsEoD2opE7xDxHYbGTvNrBDhK1c65o3g0
+
+{
+    "title": "Kuinka kaivaa koloja",
+    "author": "Iha Ite",
+    "url": "www.kaivuri.fi",
+    "likes": 12345
+}

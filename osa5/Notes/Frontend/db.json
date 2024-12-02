@@ -1,0 +1,64 @@
+{
+  "notes": [
+    {
+      "id": "1",
+      "content": "HTML is easy",
+      "important": true
+    },
+    {
+      "id": "2",
+      "content": "Browser can execute only JavaScript",
+      "important": false
+    },
+    {
+      "id": "3",
+      "content": "GET and POST are the most important methods of HTTP protocol",
+      "important": false
+    },
+    {
+      "id": "951b",
+      "content": "Tämä on testi",
+      "important": false
+    },
+    {
+      "id": "e9f1",
+      "content": "Toinen testi",
+      "important": true
+    },
+    {
+      "id": "3b07",
+      "content": "Kolmas testi",
+      "important": false
+    },
+    {
+      "id": "0935",
+      "content": "Neljäs testi tässä",
+      "important": false
+    },
+    {
+      "id": "9fa8",
+      "content": "Vielä kerran",
+      "important": false
+    },
+    {
+      "id": "2b09",
+      "content": "Ja taas",
+      "important": false
+    },
+    {
+      "id": "ebd6",
+      "content": "Seiska",
+      "important": true
+    },
+    {
+      "id": "8f00",
+      "content": "Kasi",
+      "important": false
+    },
+    {
+      "id": "464c",
+      "content": "Yksi vielä",
+      "important": false
+    }
+  ]
+}
