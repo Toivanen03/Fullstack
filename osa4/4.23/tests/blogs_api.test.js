@@ -89,7 +89,27 @@ describe('Confirm requests:', () => {
       assert(titles.includes('Epäsosiaalinen sosiaalinen media'))
     })
 
+    test('new POST-entry fails without valid token', async () => {
+      const newBlog = {
+        title: "Epäsosiaalinen sosiaalinen media",
+        author: "Mark Zuckerberg",
+        url: "http://www.facebook.com",
+        likes: 5,
+      }
+    
+      await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(401)
+
+      const blogsAtEnd = await helper.blogsInDb()
+      assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
+    })
+
     test('check for title and url at POST', async () => {
+      const userAtStart = await User.findOne({ username: 'MarkZ' })
+      const token = jwt.sign({ id: userAtStart._id, username: userAtStart.username }, process.env.SECRET)
+
       const newBlogWithoutTitle = {
         author: "Simo Toivanen",
         url: "http://www.simotoivanen.fi",
@@ -104,11 +124,13 @@ describe('Confirm requests:', () => {
 
       await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${token}`)
         .send(newBlogWithoutTitle)
         .expect(400)
 
       await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${token}`)
         .send(newBlogWithoutUrl)
         .expect(400)
     })
