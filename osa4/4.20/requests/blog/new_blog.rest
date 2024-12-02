@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hc2EiLCJpZCI6IjY3NGIxMTM4Yzk3Y2Q3YTVhMGYwYzZkYyIsImlhdCI6MTczMjk3Mjg5NH0.8atYCxea-DN6W3SvPUrCfSAskNz7DnnmdlQNAkXj2A4
+
+{
+    "title": "Veneen vuosihuolto",
+    "author": "Nooa",
+    "url": "www.jw.org",
+    "likes": 12345
+}

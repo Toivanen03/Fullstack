@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkVzaW1lcmtraTIzNCIsImlkIjoiNjc0OWFmMGQ0NDYzMjA2MDJjOGNlMmFkIiwiaWF0IjoxNzMyODgyMjExfQ.QILw5ODKI0BVKChUIEjcDwpa47icUIpVoU7I8s3iclo
+
+{
+    "title": "Kuinka veistää tosi iso vene",
+    "author": "Nooa",
+    "url": "www.jw.org",
+    "likes": 345
+}
