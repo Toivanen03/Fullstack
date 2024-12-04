@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { fixupConfigRules } from '@eslint/compat'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import globals from 'globals'
@@ -14,7 +16,14 @@ const compat = new FlatCompat({
   allConfig: js.configs.all
 })
 
-export default [{
+export default [
+  {
+    "extends": ["plugin:vitest-globals/recommended"],
+    "env": {
+      "vitest-globals/env": true
+    }
+  },
+  {
   ignores: [
     '**/dist',
     '**/.eslintrc.cjs',
@@ -47,7 +56,7 @@ export default [{
 
   rules: {
     indent: ['error', 2],
-    'linebreak-style': ['error', 'unix'],
+    'linebreak-style': [false],
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     eqeqeq: 'error',

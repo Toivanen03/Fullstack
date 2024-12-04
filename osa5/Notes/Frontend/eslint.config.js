@@ -8,6 +8,12 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
   {
+    "extends": ["plugin:vitest-globals/recommended"],
+    "env": {
+      "vitest-globals/env": true
+    }
+  },
+  {
     files: ['**/*.{js,jsx}'],
     ignores: [
       "**/node_modules/**",
@@ -42,7 +48,7 @@ export default [
       ],
       'no-unused-vars': 'off',
       indent: ['error', 2],
-      'linebreak-style': ['error', 'unix'],
+      "linebreak-style": ["error", "windows"],
       quotes: ['error', 'single'],
       semi: ['error', 'never'],
       eqeqeq: 'error',
