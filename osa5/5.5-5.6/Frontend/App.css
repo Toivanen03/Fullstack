@@ -1,0 +1,19 @@
+.error {
+    color: red;
+    background: lightgray;
+    font-size: 20px;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.normal {
+  color: green;
+  background: lightgray;
+  font-size: 20px;
+  border: 2px solid green;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}

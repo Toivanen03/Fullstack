@@ -1,0 +1,10 @@
+PUT http://localhost:3003/api/blogs/674b35b5235128ef1a8ce84a
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hc2EiLCJpZCI6IjY3NGIxMTM4Yzk3Y2Q3YTVhMGYwYzZkYyIsImlhdCI6MTczMjk4NjUxN30.udRiLRDtMvLOsA_sA2Kk40urrQXJCJtf9ONGzGqKPyU
+
+{
+    "title": "Kuinka veistää valtavan iso vene",
+    "author": "Nooa",
+    "url": "www.jw.org",
+    "likes": 666
+}

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import js from '@eslint/js'
 import globals from 'globals'
 import react from 'eslint-plugin-react'
@@ -7,17 +9,22 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 export default [
   {
     files: ['**/*.{js,jsx}'],
-    ignores: ['dist'],
+    ignores: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "eslint.config.js",
+      "vite.config.js"],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 'latest',
       globals: globals.browser,
       parserOptions: {
-        ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
         sourceType: 'module',
       },
     },
-    settings: { react: { version: '18.3' } },
+    settings: {
+      react: { version: '18.3' },
+    },
     plugins: {
       react,
       'react-hooks': reactHooks,
@@ -33,7 +40,18 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
-      'no-unused-vars': [{ 'args': 'none' }]
+      'no-unused-vars': 'off',
+      indent: ['error', 2],
+      'linebreak-style': ['error', 'unix'],
+      quotes: ['error', 'single'],
+      semi: ['error', 'never'],
+      eqeqeq: 'error',
+      'no-trailing-spaces': 'error',
+      'object-curly-spacing': ['error', 'always'],
+      'arrow-spacing': ['error', { before: true, after: true }],
+      'no-console': 'off',
+      'react/prop-types': 'off',
+      'react/react-in-jsx-scope': 'off',
     },
   },
 ]
