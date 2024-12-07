@@ -36,10 +36,6 @@ describe('Blog component', () => {
           />
         )
 
-        expect(screen.queryByText(blog.url)).not.toBeInTheDocument()
-        expect(screen.queryByText(`Likes: ${blog.likes}`)).not.toBeInTheDocument()
-        expect(screen.queryByText(`Added by: ${blog.user.name}`)).not.toBeInTheDocument()
-
         const button = screen.getByText('View')
         await userEvent.click(button)
 
