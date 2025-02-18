@@ -1,0 +1,21 @@
+{
+  "name": "5.17-5.23",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:test:all": "concurrently \"npm run dev --prefix ./Frontend\" \"npm run dev:test --prefix ./Backend\"",
+    "test": "playwright test --project chromium --ui",
+    "test:report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.10.1",
+    "concurrently": "^9.1.0",
+    "eslint-config-prettier": "^10.0.1",
+    "express": "^4.21.2"
+  }
+}

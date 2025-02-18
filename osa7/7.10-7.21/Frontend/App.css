@@ -1,0 +1,32 @@
+.error {
+    color: red;
+    background: lightgray;
+    font-size: 20px;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.normal {
+  color: green;
+  background: lightgray;
+  font-size: 20px;
+  border: 2px solid green;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.blogStyle {
+  padding: 10px;
+  border: 'solid';
+  border: 1px solid;
+  margin-left: 2px;
+  margin-bottom: 5px;
+  width: 400px;
+}
+
+button {
+  margin-left: 5px;
+}
