@@ -1,5 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import blogService from "../services/blogs"
+
+export const addComment = createAsyncThunk(
+  "blogs/addComment",
+  async ({ id, comment }) => {
+    const response = await blogService.addComment(id, comment)
+    return { id, comment: response }
+  }
+)
 
 const blogSlice = createSlice({
   name: "blogs",
@@ -21,6 +29,15 @@ const blogSlice = createSlice({
       const id = action.payload
       return state.filter((blog) => blog.id !== id)
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(addComment.fulfilled, (state, action) => {
+      const { id, comment } = action.payload
+      const blog = state.find((b) => b.id === id)
+      if (blog) {
+        blog.comments.push(comment)
+      }
+    })
   },
 })
 

@@ -1,11 +1,11 @@
 .error {
-    color: red;
-    background: lightgray;
-    font-size: 20px;
-    border: 2px solid red;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
+  color: red;
+  background: lightgray;
+  font-size: 20px;
+  border: 2px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .normal {
@@ -20,7 +20,7 @@
 
 .blogStyle {
   padding: 10px;
-  border: 'solid';
+  border: "solid";
   border: 1px solid;
   margin-left: 2px;
   margin-bottom: 5px;
@@ -29,4 +29,31 @@
 
 button {
   margin-left: 5px;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  padding: 0;
+}
+
+nav li {
+  margin-right: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #0056b3;
+}
+
+.navi {
+  background-color: lightblue;
+  border: solid 2px blue;
+  color: black;
 }

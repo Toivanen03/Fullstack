@@ -1,28 +1,68 @@
 import "../App.css"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchBlogs, createBlog } from "./redux/blogSlice"
 import { setNotification, clearNotification } from "./redux/notificationSlice"
-import { setUser, logoutUser } from "./redux/userSlice"
+import { setUser } from "./redux/userSlice"
 import Notification from "./components/Notification"
-import LoginForm from "./components/LoginForm"
-import Togglable from "./components/Togglable"
-import BlogForm from "./components/BlogForm"
 import blogService from "./services/blogs"
-import loginService from "./services/login"
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom"
 import Users from "./components/Users"
 import User from "./components/User"
 import Blogs from "./components/Blogs"
+import BlogDetails from "./components/BlogDetails"
+import Togglable from "./components/Togglable"
+import Navigation from "./components/Navi"
+import BlogForm from "./components/BlogForm"
 
-const App = () => {
+const Content = () => {
   const dispatch = useDispatch()
   const blogs = useSelector((state) => state.blogs)
   const user = useSelector((state) => state.user)
   const blogFormRef = useRef()
+  const location = useLocation()
 
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const addBlog = async (blogObject) => {
+    blogFormRef.current.toggleVisibility()
+    try {
+      dispatch(createBlog(blogObject))
+      dispatch(setNotification({ message: "Blogi lisätty!", type: "normal" }))
+      setTimeout(() => {
+        dispatch(clearNotification())
+      }, 5000)
+    } catch (error) {
+      dispatch(setNotification({ message: "Virhe", type: "error" }))
+      setTimeout(() => {
+        dispatch(clearNotification())
+      }, 5000)
+    }
+  }
+
+  return (
+    <div>
+      <br />
+      {user && location.pathname === "/" && (
+        <Togglable buttonLabel="New blog" ref={blogFormRef}>
+          <BlogForm createBlog={addBlog} />
+        </Togglable>
+      )}
+      <Routes>
+        <Route path="/" element={<Blogs blogs={blogs} user={user} />} />
+        <Route path="/users/:id" element={<User />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/blogs/:id" element={<BlogDetails />} />
+      </Routes>
+    </div>
+  )
+}
+
+const App = () => {
+  const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(fetchBlogs())
@@ -37,78 +77,15 @@ const App = () => {
     }
   }, [dispatch])
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    try {
-      const user = await loginService.login({ username, password })
-      window.localStorage.setItem("loggedBlogAppUser", JSON.stringify(user))
-      blogService.setToken(user.token)
-      dispatch(setUser(user))
-    } catch (exception) {
-      dispatch(setNotification({ message: "Wrong credentials", type: "error" }))
-      setTimeout(() => {
-        dispatch(clearNotification())
-      }, 5000)
-    }
-  }
-
-  const handleLogout = () => {
-    window.localStorage.removeItem("loggedBlogAppUser")
-    dispatch(logoutUser())
-  }
-
-  const addBlog = async (blogObject) => {
-    blogFormRef.current.toggleVisibility()
-    try {
-      await dispatch(createBlog(blogObject))
-      dispatch(setNotification({ message: "Blogi lisätty !", type: "normal" }))
-      setTimeout(() => {
-        dispatch(clearNotification())
-      }, 5000)
-    } catch (error) {
-      dispatch(setNotification({ message: "Virhe: ", type: "error" }))
-      setTimeout(() => {
-        dispatch(clearNotification())
-      }, 5000)
-    }
-  }
-
   return (
-    <div>
-      <h1>Blogs</h1>
-      <Notification />
-      <h2>Login</h2>
-      {!user && (
-        <Togglable buttonLabel="login">
-          <LoginForm
-            handleSubmit={handleLogin}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
-            username={username}
-            password={password}
-          />
-        </Togglable>
-      )}
-      {user && (
-        <div>
-          <p>{user.name} logged in</p>
-          <button onClick={handleLogout}>Log out</button>
-          <br />
-          <Togglable buttonLabel="New blog" ref={blogFormRef}>
-            <BlogForm createBlog={addBlog} />
-          </Togglable>
-        </div>
-      )}
-      <h3>Blogs</h3>
-
-      <Router>
-        <Routes>
-          <Route path="/" element={<Blogs blogs={blogs} user={user} />} />
-          <Route path="/users/:id" element={<User />} />
-          <Route path="/users" element={<Users />} />
-        </Routes>
-      </Router>
-    </div>
+    <Router>
+      <div>
+        <h1>Blogs</h1>
+        <Notification />
+        <Navigation />
+        <Content />
+      </div>
+    </Router>
   )
 }
 
