@@ -1,5 +1,5 @@
 {
-  "name": "graphql",
+  "name": "library",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -13,11 +13,8 @@
     "@apollo/server": "^4.11.3",
     "dotenv": "^16.4.7",
     "graphql": "^16.10.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.12.1",
+    "mongoose": "^7.8.6",
+    "mongoose-unique-validator": "^4.0.1",
     "uuid": "^11.1.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.9"
   }
 }
