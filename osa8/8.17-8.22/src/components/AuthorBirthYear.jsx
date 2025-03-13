@@ -3,10 +3,14 @@ import { useMutation } from '@apollo/client'
 import { ALL_AUTHORS, EDIT_AUTHOR } from '../queries'
 import Select from 'react-select'
 
-const AuthorBirthYear = ({ authors, show }) => {
+const AuthorBirthYear = ({ authors, show, setError, setPage }) => {
   const [name, setName] = useState('')
   const [born, setBorn] = useState('')
   const [editAuthor] = useMutation(EDIT_AUTHOR, {
+    onError: (error) => {
+      const messages = error.graphQLErrors.map(e => e.message).join('\n')
+      setError(messages)
+    },
     update: (cache, { data: { editAuthor } }) => {
       const { allAuthors } = cache.readQuery({ query: ALL_AUTHORS })
         const updatedAuthors = allAuthors.map((author) =>
@@ -25,6 +29,7 @@ const AuthorBirthYear = ({ authors, show }) => {
     editAuthor({ variables: { name, setBornTo: parseInt(born) } })
     setName('')
     setBorn('')
+    setPage('authors')
   }
 
   const authorOptions = authors.map((author) => ({

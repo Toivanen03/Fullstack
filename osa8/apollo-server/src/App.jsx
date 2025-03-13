@@ -33,15 +33,6 @@ const App = () => {
 
   if (!token) {
     return (
-      <>
-        <Notify errorMessage={errorMessage} />
-        <LoginForm setToken={setToken} setError={notify} />
-      </>
-    )
-  }
-
-  if (!token) {
-    return (
       <div>
         <Notify errorMessage={errorMessage} />
         <h2>Login</h2>
