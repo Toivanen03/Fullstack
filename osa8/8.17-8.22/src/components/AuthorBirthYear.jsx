@@ -24,12 +24,20 @@ const AuthorBirthYear = ({ authors, show, setError, setPage }) => {
     refetchQueries: [{ query: ALL_AUTHORS }],
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    editAuthor({ variables: { name, setBornTo: parseInt(born) } })
-    setName('')
-    setBorn('')
-    setPage('authors')
+    if (!name) {
+      setError('Select author!')
+      return
+    }
+    try {
+      await editAuthor({ variables: { name, setBornTo: parseInt(born) } })
+      setName('')
+      setBorn('')
+      setPage('authors')
+    } catch (error) {
+      setError(error)
+    }
   }
 
   const authorOptions = authors.map((author) => ({

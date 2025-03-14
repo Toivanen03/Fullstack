@@ -5,12 +5,14 @@ import { setContext } from '@apollo/client/link/context'
 import App from './App'
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('library-user-token')
+  const token = sessionStorage.getItem('library-user-token')
+  const authHeader = token ? `Bearer ${token}` : undefined
+
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    }
+      ...(authHeader && { authorization: authHeader }),
+    },
   }
 })
 

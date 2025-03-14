@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../queries'
+const pwd = 'supersecretkey'
 
 const LoginForm = ({ setError, setToken, setPage }) => {
   const [username, setUsername] = useState('')
@@ -21,7 +22,7 @@ const LoginForm = ({ setError, setToken, setPage }) => {
     if (result.data) {
         const token = result.data.login.value
         setToken(token)
-        localStorage.setItem('library-user-token', token)
+        sessionStorage.setItem('library-user-token', token)
         setPage('authors')
     }
   }, [result.data])  
@@ -44,7 +45,7 @@ const LoginForm = ({ setError, setToken, setPage }) => {
           password <input
             type='password'
             value={password}
-            onChange={({ target }) => setPassword(target.value)}
+            onChange={({ target }) => setPassword(pwd)}
           />
         </div>
         <button type='submit'>login</button>

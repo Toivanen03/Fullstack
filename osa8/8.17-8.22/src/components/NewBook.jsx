@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { ALL_BOOKS, ADD_BOOK } from '../queries'
+import { useGenre } from './Genre'
 
 const NewBook = ({ show, setError, setPage }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [published, setPublished] = useState('')
   const [genres, setGenres] = useState([])
+  const { setSelectedGenre } = useGenre()
 
   const [addBook] = useMutation(ADD_BOOK, {
     onError: (error) => {
@@ -20,6 +22,8 @@ const NewBook = ({ show, setError, setPage }) => {
             allBooks: allBooks.concat(response.data.addBook),
           }
         })
+        const lastAddedGenres = response.data.addBook.genres
+        setSelectedGenre(lastAddedGenres[0] || null)
       }
     },
   })
@@ -56,7 +60,7 @@ const NewBook = ({ show, setError, setPage }) => {
         </div>
         <div>
           Genres (comma separated):
-          <input value={genres} onChange={(e) => setGenres(e.target.value.split(','))} />
+          <input value={genres} onChange={(e) => setGenres(e.target.value.split(',').map(g => g.trim()))} />
         </div>
         <button type="submit">Add Book</button>
       </form>
