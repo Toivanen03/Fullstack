@@ -1,0 +1,12 @@
+{
+  "name": "fso9",
+  "version": "1.0.0",
+  "main": "bmicalculator.ts",
+  "scripts": {
+    "calculateBmi": "ts-node bmicalculator.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Simo Toivanen",
+  "license": "ISC",
+  "description": ""
+}
