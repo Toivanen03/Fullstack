@@ -1,36 +1,38 @@
 import { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../queries'
+const pwd = 'supersecretkey'
+const user = 'retrogamer'
 
-const LoginForm = ({ setError, setToken }) => {
-  const pwd = 'supersecretkey'
-  const usrnm = 'retrogamer'
-
+const LoginForm = ({ setMessage, setMessageType, setToken, setPage }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
 
   const [login, result] = useMutation(LOGIN, {
     onError: (error) => {
+      setMessageType('error')
       if (error.graphQLErrors.length > 0) {
-        setError(error.graphQLErrors[0].message)
+        setMessage(error.graphQLErrors[0].message)
       } else {
-        setError(error.message)
+        setMessage(error.message)
       }
     }
   })
 
   useEffect(() => {
-    if ( result.data ) {
-      const token = result.data.login.value
-      setToken(token)
-      sessionStorage.setItem('phonenumbers-user-token', token)
+    if (result.data) {
+        const token = result.data.login.value
+        setToken(token)
+        sessionStorage.setItem('library-user-token', token)
+        setMessageType('ok')
+        setMessage(`${username} logged in!`)
+        setPage('authors')
     }
-  }, [result.data])
+  }, [result.data])  
 
   const submit = async (event) => {
     event.preventDefault()
-
     login({ variables: { username, password } })
   }
 
@@ -40,7 +42,7 @@ const LoginForm = ({ setError, setToken }) => {
         <div>
           username <input
             value={username}
-            onChange={({ target }) => setUsername(usrnm)}
+            onChange={({ target }) => setUsername(user)}
           />
         </div>
         <div>

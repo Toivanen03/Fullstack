@@ -1,18 +1,22 @@
+import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, split } from '@apollo/client'
+import { ApolloProvider, InMemoryCache, ApolloClient, createHttpLink, split } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import App from './App'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { createClient } from 'graphql-ws'
+import cachePolicies from './cache'
 
 const authLink = setContext((_, { headers }) => {
-  const token = sessionStorage.getItem('phonenumbers-user-token')
+  const token = sessionStorage.getItem('library-user-token')
+  const authHeader = token ? `Bearer ${token}` : ''
+
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    }
+      ...(authHeader && { authorization: authHeader }),
+    },
   }
 })
 
@@ -34,14 +38,14 @@ const splitLink = split(
 )
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: cachePolicies
+  }),
   link: splitLink
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-
   <ApolloProvider client={client}>
     <App />
-
   </ApolloProvider>
 )

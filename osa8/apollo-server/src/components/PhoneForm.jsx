@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import { EDIT_NUMBER } from '../queries'
+import { ALL_PERSONS } from '../queries'
 
 const PhoneForm = ({ setError }) => {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
 
 
-  const [ changeNumber, result ] = useMutation(EDIT_NUMBER)
+  const [changeNumber, result] = useMutation(EDIT_NUMBER, {
+    refetchQueries: [{ query: ALL_PERSONS }],
+    onError: (error) => {
+      setError(error.graphQLErrors[0]?.message || error.message)
+    }
+  })
 
   const submit = async (event) => {
     event.preventDefault()
