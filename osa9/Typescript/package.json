@@ -2,7 +2,9 @@
   "name": "typescript",
   "version": "1.0.0",
   "scripts": {
+    "start": "ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev index.ts",
     "multiply": "ts-node multiplier.ts",
     "calculate": "ts-node calculator.ts"
   },
@@ -10,6 +12,11 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/node": "^22.13.10"
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.10",
+    "ts-node-dev": "^2.0.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
   }
 }

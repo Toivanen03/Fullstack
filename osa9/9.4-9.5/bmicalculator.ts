@@ -15,7 +15,7 @@ const parseArguments = (args: string[]): extractValues => {
     }
 }
 
-const calculateBmi = (height: number, weight: number) => {
+export const calculateBmi = (height: number, weight: number) => {
     const bmi = Number((weight / Math.pow((height / 100), 2)).toFixed(2));
     let result: string;
     
@@ -29,16 +29,18 @@ const calculateBmi = (height: number, weight: number) => {
         result = 'obese';
     }
 
-    console.log(`Your BMI is ${bmi} and you're ${result}.`);
+    return `Your BMI is ${bmi} and you're ${result}.`;
 };
 
-try {
-    const { height, weight } = parseArguments(process.argv);
-    calculateBmi(height, weight);
-} catch (error: unknown) {
-    let errorMessage = 'Something went wrong: ';
-    if (error instanceof Error) {
-        errorMessage += error.message;
+if (require.main === module) {
+    try {
+        const { height, weight } = parseArguments(process.argv);
+        console.log(calculateBmi(height, weight));
+    } catch (error: unknown) {
+        let errorMessage = 'Something went wrong: ';
+        if (error instanceof Error) {
+            errorMessage += error.message;
+        };
+        console.log(errorMessage);
     };
-    console.log(errorMessage);
 };
