@@ -1,13 +1,13 @@
 {
-  "name": "ilaris-night-diapers",
+  "name": "patientor-backend",
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
     "start": "node build/index.js",
-    "tsc": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev src/index.ts",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "tsc": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Simo Toivanen",
   "license": "ISC",
@@ -15,6 +15,7 @@
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@stylistic/eslint-plugin": "^4.2.0",
+    "@types/cors": "^2.8.17",
     "@types/eslint__js": "^8.42.3",
     "@types/express": "^5.0.1",
     "eslint": "^9.22.0",
@@ -23,6 +24,8 @@
     "typescript-eslint": "^8.27.0"
   },
   "dependencies": {
-    "express": "^4.21.2"
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "uuid": "^11.1.0"
   }
 }
