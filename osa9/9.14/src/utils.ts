@@ -5,7 +5,7 @@ const isString = (text: unknown): text is string => {
 };
 
 const isSSN = (ssn: string): boolean=> {
-    return ssn.length === 11 && Object.values(Separator).some(x => ssn[6] === x);
+    return ssn.length === 11 && Object.values(Separator).some(x => x === ssn[6] as Separator);
 };
 
 const isValidId = (uuid: string): boolean => {

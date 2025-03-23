@@ -9,7 +9,7 @@ export enum Gender {
 export enum Separator {
     Dash = '-',
     A = 'A'
-}
+};
 
 export interface Diagnosis {
     code: string;

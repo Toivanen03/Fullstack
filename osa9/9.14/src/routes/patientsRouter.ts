@@ -1,5 +1,6 @@
-import express from 'express';
+import express, { Request, Response} from 'express';
 import patientsService from '../services/patientsService';
+import { Patient } from '../types';
 import toNewPatient from '../utils';
 import { v4 as uuid } from 'uuid';
 
@@ -9,7 +10,7 @@ patientsRouter.get('/', (_req, res) => {
     res.send(patientsService.getPatients());
 });
 
-patientsRouter.post('/', (req, res) => {
+patientsRouter.post('/', (req: Request<unknown, unknown, Patient>, res: Response) => {
     try {
         if (!(req.body.id)) {
             req.body.id = uuid();
