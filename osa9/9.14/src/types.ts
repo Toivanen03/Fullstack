@@ -1,14 +1,10 @@
-import { UUIDTypes } from "uuid";
+import { z } from 'zod';
+import { newEntrySchema } from './utils';
 
 export enum Gender {
     Male = 'male',
     Female = 'female',
     Other = 'other',
-};
-
-export enum Separator {
-    Dash = '-',
-    A = 'A'
 };
 
 export interface Diagnosis {
@@ -17,14 +13,9 @@ export interface Diagnosis {
     latin?: string;
 };
 
-export interface Patient {
-    id: UUIDTypes;
-    name: string;
-    dateOfBirth: string;
-    ssn: string;
-    gender: Gender;
-    occupation: string;
+export interface Patient extends NewPatientEntry {
+    id: string;
 };
 
-export type NewPatientEntry = Patient;
+export type NewPatientEntry = z.infer<typeof newEntrySchema>;
 export type FilteredFields = Omit<Patient, 'ssn'>;

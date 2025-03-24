@@ -31,6 +31,7 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
       const patient = await patientService.create(values);
       setPatients(patients.concat(patient));
       setModalOpen(false);
+      setError(undefined)
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         if (e?.response?.data && typeof e?.response?.data === "string") {

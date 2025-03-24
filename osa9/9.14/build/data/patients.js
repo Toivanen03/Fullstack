@@ -1,6 +1,6 @@
-import { Patient } from '../src/types';
-import { toNewPatient } from '../src/utils';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const utils_1 = require("../src/utils");
 const data = [
     {
         "id": "d2773336-f723-11e9-8f0b-362b9e155667",
@@ -43,11 +43,9 @@ const data = [
         "occupation": "Digital evangelist"
     }
 ];
-
-const patientsData: Patient[] = data.map(obj => {
-    const object = toNewPatient(obj);
+const patientsData = data.map(obj => {
+    const object = (0, utils_1.toNewPatient)(obj);
     object.id = obj.id;
     return object;
 });
-
-export default patientsData;
+exports.default = patientsData;

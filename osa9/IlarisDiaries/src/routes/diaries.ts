@@ -1,27 +1,27 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import diaryService from '../services/diaryService';
-import { Response } from 'express';
-import { NonSensitiveDiaryEntry } from "../types";
-import toNewDiaryEntry from '../utils';
+import { NonSensitiveDiaryEntry, NewDiaryEntry, DiaryEntry } from "../types";
+import { newEntrySchema } from '../utils';
+import { errorMiddleware } from '../middleware/errorMiddleware';
 
 const diaryRouter = express.Router();
+
+const newDiaryParser = (req: Request, _res: Response, next: NextFunction) => { 
+  try {
+    newEntrySchema.parse(req.body);
+    next();
+  } catch (error: unknown) {
+    next(error);
+  }
+};
 
 diaryRouter.get('/', (_req, res: Response<NonSensitiveDiaryEntry[]>) => {
     res.send(diaryService.getNonSensitiveEntries());
   });
 
-diaryRouter.post('/', (req, res) => {
-  try {
-    const newDiaryEntry = toNewDiaryEntry(req.body);
-    const addedEntry = diaryService.addDiary(newDiaryEntry);
-    res.json(addedEntry);
-  } catch (error: unknown) {
-    let errorMessage = 'Something went wrong.';
-    if (error instanceof Error) {
-      errorMessage += ' Error: ' + error.message;
-    }
-    res.status(400).send(errorMessage);
-  };
+diaryRouter.post('/', newDiaryParser, (req: Request<unknown, unknown, NewDiaryEntry>, res: Response<DiaryEntry>) => {
+  const addedEntry = diaryService.addDiary(req.body);
+  res.json(addedEntry);
 });
 
 diaryRouter.get('/:id', (req, res) => {
@@ -33,5 +33,7 @@ diaryRouter.get('/:id', (req, res) => {
     res.sendStatus(404);
   }
 });
+
+diaryRouter.use(errorMiddleware);
 
 export default diaryRouter;
