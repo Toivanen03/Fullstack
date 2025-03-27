@@ -5,7 +5,7 @@ import './App.css'
 
 const App = () => {
   const [diaries, setDiary] = useState<DiaryEntry[]>([]);
-  const [newDiaryDate, setNewDiaryDate] = useState('');
+  const [newDiaryDate, setNewDiaryDate] = useState(new Date().toISOString().split('T')[0]);
   const [newDiaryWeather, setNewDiaryWeather] = useState('');
   const [newDiaryVisibility, setNewDiaryVisibility] = useState('');
   const [newDiaryComment, setNewDiaryComment] = useState('');
@@ -38,7 +38,7 @@ const App = () => {
     }, setError).then(data => {
       if (data) {
         setDiary([...diaries, data]);
-        setNewDiaryDate('');
+        setNewDiaryDate(new Date().toISOString().split('T')[0]);
         setNewDiaryWeather('');
         setNewDiaryVisibility('');
         setNewDiaryComment('');
@@ -59,24 +59,46 @@ const App = () => {
           <h2>Add new flight:</h2>
 
           <form onSubmit={diaryCreation}>
-            <div className={'left-text'}>Flight date:</div>
+            <label htmlFor="start" className={'left-text'}>Flight date:</label>
+            <br />
             <input
+              type="date"
+              id="start"
+              name="trip-start"
               value={newDiaryDate}
-              onChange={(event) => setNewDiaryDate(event.target.value)} 
-            /><span className='hint'>YYYY-MM-DD</span>
+              min="2014-01-01"
+              max="2028-12-31"
+              onChange={(event) => setNewDiaryDate(event.target.value)}/>
             <br />
             <div className='left-text'>Weather:</div>
-            <input
-              value={newDiaryWeather}
-              onChange={(event) => setNewDiaryWeather(event.target.value)} 
-            /><span className='hint'>sunny, rainy, cloudy, stormy, windy</span>
-            <br />
+            <div>
+              {['sunny', 'rainy', 'cloudy', 'stormy', 'windy'].map((weather) => (
+                <label key={weather}>
+                  <input
+                    type="radio"
+                    name="weather"
+                    value={weather}
+                    checked={newDiaryWeather === weather}
+                    onChange={(event) => setNewDiaryWeather(event.target.value)}
+                  />
+                  {weather}
+                </label>
+              ))}
+            </div>
             <div className='left-text'>Visibility:</div>
-            <input
-              value={newDiaryVisibility}
-              onChange={(event) => setNewDiaryVisibility(event.target.value)} 
-            /><span className='hint'>great, good, ok, poor</span>
-            <br />
+            <div>
+              {['great', 'good', 'ok', 'poor'].map((visibility) => (
+                <label key={visibility}>
+                  <input type='radio'
+                  name='visibility'
+                  value={visibility}
+                  checked={newDiaryVisibility === visibility}
+                  onChange={(event) => setNewDiaryVisibility(event.target.value)}
+                />
+                {visibility}
+                </label>
+              ))}
+            </div> 
             <div className='left-text'>Comment:</div>
             <input
               value={newDiaryComment}
