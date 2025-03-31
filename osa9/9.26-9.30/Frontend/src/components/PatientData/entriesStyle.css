@@ -1,0 +1,60 @@
+.entriesHeader {
+    vertical-align: top !important;
+}
+
+.css-1ex1afd-MuiTableCell-root {
+    padding: 15px !important;
+}
+
+.css-rqglhn-MuiTable-root {
+    border-collapse: unset !important;
+}
+
+.entriesCell {
+    border: solid 1px black !important;
+    border-radius: 10px;
+}
+
+.entriesCell li {
+    padding: 8px;
+}
+
+.genderIcon {
+    font-size: 45px !important;
+    vertical-align: middle;
+}
+
+.leftAlign {
+    width: 78%;
+}
+
+.rightAlign {
+    display: flex;
+    width: 22%;
+    border: solid 1px gray !important;
+    border-radius: 10px;
+}
+
+.explanations {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: bold;
+    padding: 4px;
+}
+
+.healthIcon {
+    font-size: 24px !important;
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+.healthText {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+.detailsIcon {
+    display: inline;
+    margin-left: 15px;
+}
