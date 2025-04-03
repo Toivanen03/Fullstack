@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody } from '@mui/material';
 import axios from 'axios';
 import { PatientFormValues, Patient } from "../../types";
-import AddPatientModal from "../AddPatientModal";
+import AddPatientModal from "../AddPatientModal/PatientModal";
 import patientService from "../../services/patients";
 import HealthRatingBar from "../HealthRatingBar";
 
@@ -28,7 +28,7 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {const navigate 
       const patient = await patientService.create(values);
       setPatients(patients.concat(patient));
       setModalOpen(false);
-      setError(undefined)
+      setError(undefined);
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         if (e?.response?.data && Array.isArray(e.response.data)) {

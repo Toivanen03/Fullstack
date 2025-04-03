@@ -25,12 +25,20 @@
 }
 
 .leftAlign {
-    width: 78%;
+    display: flex;
+    width: 40%;
+}
+
+.centerAlign {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 40%
 }
 
 .rightAlign {
     display: flex;
-    width: 22%;
+    width: 20%;
     border: solid 1px gray !important;
     border-radius: 10px;
 }
@@ -57,4 +65,17 @@
 .detailsIcon {
     display: inline;
     margin-left: 15px;
+}
+
+.closeButton {
+    display: flex;
+    vertical-align: middle;
+    color: blue;
+    border: solid 1px black;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.closeButtonIcon {
+    margin-top: 2px;
 }

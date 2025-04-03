@@ -4,7 +4,7 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import { Patient, Entry, HospitalEntry, OccupationalHealthcareEntry, HealthCheckEntry, HealthCheckRating } from '../../types';
-import './entriesStyle.css'
+import './entriesStyle.css';
 
 interface EntriesProps {
     patient: Patient;
@@ -30,7 +30,7 @@ const HospitalEntryDetails: React.FC<{ entry: HospitalEntry }> = ({ entry }) => 
   
   const HealthCheckEntryDetails: React.FC<{ entry: HealthCheckEntry }> = ({ entry }) => (
     <div>
-      <li><b>Health Check Rating: </b><div className='detailsIcon'>{healthIcon(entry.healthCheckRating)}</div></li>
+      <li><b>Health: </b><div className='detailsIcon'>{healthIcon(entry.healthCheckRating)}</div></li>
     </div>
   );
 
@@ -59,7 +59,7 @@ const HospitalEntryDetails: React.FC<{ entry: HospitalEntry }> = ({ entry }) => 
         return <HealthCheckEntryDetails entry={entry as HealthCheckEntry} />;
       default: throw new Error('Invalid entry type! ');
     }
-  }
+  };
 
   const typeIcon = (entry: Entry) => {
     switch (entry.type) {
@@ -71,7 +71,7 @@ const HospitalEntryDetails: React.FC<{ entry: HospitalEntry }> = ({ entry }) => 
         return <MedicalServicesIcon className='healthIcon' />;
       default: return null;
     }
-  }
+  };
   
 const Entries = ({ patient, codeExplanation }: EntriesProps) => {
   return (
@@ -84,7 +84,7 @@ const Entries = ({ patient, codeExplanation }: EntriesProps) => {
               <ul key={index} className='entriesCell'>
               <div key={index}>
                 <li><b>Date: </b> {entryObj.date} <div className='detailsIcon'>{typeIcon(entryObj)}</div></li>
-                <li><b>Description: </b> {entryObj.description}</li>
+                <li><b>Description: </b> <i>{entryObj.description}</i></li>
                 <ul>
                   {entryObj.diagnosisCodes?.map((code, index) => (
                     <li key={index}>{code} - {codeExplanation[code]}</li>
@@ -99,7 +99,7 @@ const Entries = ({ patient, codeExplanation }: EntriesProps) => {
         </TableRow>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Entries
+export default Entries;

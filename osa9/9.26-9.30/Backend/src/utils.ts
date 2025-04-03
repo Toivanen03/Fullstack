@@ -1,50 +1,65 @@
-import { NewPatientEntry, Gender, HealthCheckRating } from "./types";
-import { z } from "zod";
+import { NewPatientEntry, Gender, NewDiagnosticsEntry } from "./types";
+import { z, ZodError } from "zod";
 
-const healthCheckEntrySchema = z.object({
-    id: z.string(),
-    date: z.string(),
-    type: z.literal("HealthCheck"),
-    specialist: z.string(),
+const baseEntrySchema = z.object({
+    id: z.string().regex(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/, {
+        message: "ID error!"
+    }),
+    date: z.string().refine((date) => !isNaN(Date.parse(date)), {
+        message: "Date must be YYYY-MM-DD!"
+    }),
+    specialist: z.string().regex(/^[a-zåäö.-]{1,}(?: [a-zåäö.-]{1,})*$/i, {
+        message: "Invalid or missing specialist!"
+    }),
     diagnosisCodes: z.array(z.string()).optional(),
-    description: z.string(),
-    healthCheckRating: z.nativeEnum(HealthCheckRating),
-  });
-  
-const hospitalEntrySchema = z.object({
-    id: z.string(),
-    date: z.string(),
-    type: z.literal("Hospital"),
-    specialist: z.string(),
-    diagnosisCodes: z.array(z.string()).optional(),
-    description: z.string(),
-    discharge: z.object({
-        date: z.string(),
-        criteria: z.string(),
+    description: z.string().min(5, {
+        message: "Description is required!"
     }),
 });
 
-const occupationalHealthcareEntrySchema = z.object({
-    id: z.string(),
-    date: z.string(),
+const healthCheckEntrySchema = baseEntrySchema.extend({
+    type: z.literal("HealthCheck"),
+    healthCheckRating: z.number().refine((val) => {
+        return val >= 0 && val <= 3;
+    }, {
+        message: "Select health risk rating!",
+    }),
+});
+
+const hospitalEntrySchema = baseEntrySchema.extend({
+    type: z.literal("Hospital"),
+    discharge: z.object({
+        date: z.string(),
+        criteria: z.string(),
+    }).optional(),
+});
+
+const occupationalHealthcareEntrySchema = baseEntrySchema.extend({
     type: z.literal("OccupationalHealthcare"),
-    specialist: z.string(),
-    diagnosisCodes: z.array(z.string()).optional(),
-    description: z.string(),
-    employerName: z.string(),
+    employerName: z.string().min(2, {
+        message: "Missing employer!"
+    }),
     sickLeave: z.object({
         startDate: z.string(),
         endDate: z.string(),
     }).optional(),
 });
 
-const entrySchema = z.union([
+
+export const entrySchema = z.union([
     healthCheckEntrySchema,
     hospitalEntrySchema,
     occupationalHealthcareEntrySchema,
 ]);
 
-export const newPatientEntrySchema = z.object({
+export const newDiagnosticsSchema = z.array(entrySchema);
+
+export const toNewDiagnosis = (object: unknown): NewDiagnosticsEntry => {
+    const entries = newDiagnosticsSchema.parse(object);
+    return entries;
+};
+
+export const patientEntrySchema = z.object ({
     id: z.string().regex((/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/), {
         message: "ID error!"
     }),
@@ -63,10 +78,13 @@ export const newPatientEntrySchema = z.object({
     occupation: z.string().min((3), {
         message: "Occupation must be at least 3 characters!"
     }),
-    entries: z.array(entrySchema)
-    })
+    entries: z.array(entrySchema).optional()
+});
 
-export const toNewPatient = (object: unknown): NewPatientEntry => {
-    const patient = newPatientEntrySchema.parse(object);
-    return patient;
+export const toPatient = (object: unknown): NewPatientEntry => {
+    const result = patientEntrySchema.safeParse(object);
+    if (!result.success) {
+        throw new ZodError(result.error.errors);
+    }
+    return result.data;
 };

@@ -1,7 +1,5 @@
 import { useState, SyntheticEvent } from "react";
-
 import {  TextField, InputLabel, MenuItem, Select, Grid, Button, SelectChangeEvent } from '@mui/material';
-
 import { PatientFormValues, Gender, Entry } from "../../types";
 
 interface Props {
@@ -25,7 +23,7 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [gender, setGender] = useState(Gender.Male);
   const [entry, setEntry] = useState<string>("");
-  const [entries,/* setEntries*/] = useState<Entry[]>([]);
+  const [entries] = useState<Entry[]>([]);
 
   const onGenderChange = (event: SelectChangeEvent<string>) => {
     event.preventDefault();
@@ -40,19 +38,12 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
 
   const addPatient = (event: SyntheticEvent) => {
     event.preventDefault();
- /*   let updatedEntries = entries;
-    const isDuplicate = entries.some((e) => e.entry === entry);
-    if (!isDuplicate) {
-      const newEntry: Entry = { entry };
-      updatedEntries = [...entries, newEntry];
-      setEntries(updatedEntries);
-    }*/
     onSubmit({
       name,
       occupation,
       ssn,
       dateOfBirth,
-      entries,//: updatedEntries,
+      entries,
       gender
     });
   };

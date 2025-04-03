@@ -1,5 +1,5 @@
 import { Patient, Gender } from '../src/types';
-import { toNewPatient } from '../src/utils';
+import { toPatient } from '../src/utils';
 
 const data = [
     {
@@ -72,7 +72,7 @@ const data = [
             specialist: 'MD House',
             type: 'HealthCheck',
             description: 'Yearly control visit. Cholesterol levels back to normal.',
-            healthCheckRating: 0,
+            healthCheckRating: 1,
           },
           {
             id: 'fcd59fa6-c4b4-4fec-ac4d-df4fe1f85f62',
@@ -89,7 +89,7 @@ const data = [
             type: 'HealthCheck',
             description:
               'Yearly control visit. Due to high cholesterol levels recommended to eat more vegetables.',
-            healthCheckRating: 1,
+            healthCheckRating: 2,
           },
         ],
       },
@@ -107,14 +107,14 @@ const data = [
             specialist: 'Dr Byte House',
             type: 'HealthCheck',
             description: 'Digital overdose, very bytestatic. Otherwise healthy.',
-            healthCheckRating: 0,
+            healthCheckRating: 3,
           },
         ],
       },
 ];
 
 const patientsData: Patient[] = data.map(obj => {
-    const object = toNewPatient(obj);
+    const object = toPatient(obj);
     object.id = obj.id;
     return object;
 });

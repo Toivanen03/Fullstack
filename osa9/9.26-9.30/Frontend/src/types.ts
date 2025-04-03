@@ -2,16 +2,15 @@ export enum Gender {
     Male = 'male',
     Female = 'female',
     Other = 'other',
-};
+}
 
 export interface Diagnosis {
     code: string;
     name: string;
     latin?: string;
-};
+}
 
 interface BaseEntry {
-    id: string;
     description: string;
     date: string;
     specialist: string;
@@ -48,9 +47,9 @@ export interface HealthCheckEntry extends BaseEntry {
 }
 
 export type Entry =
-    | HospitalEntry
-    | OccupationalHealthcareEntry
-    | HealthCheckEntry;
+    HospitalEntry |
+    OccupationalHealthcareEntry |
+    HealthCheckEntry;
 
 export interface Patient {
     id: string;
@@ -61,5 +60,11 @@ export interface Patient {
     dateOfBirth: string;
     entries?: Entry[];
 }
+
+export type NewEntry = 
+    (Omit<HospitalEntry, 'id' | 'type' > & { type: 'Hospital' }) |
+    (Omit<OccupationalHealthcareEntry, 'id' > & { type: 'OccupationalHealthcare' }) |
+    (Omit<HealthCheckEntry, 'id' > & { type: 'HealthCheck'
+});
 
 export type PatientFormValues = Omit<Patient, "id">;

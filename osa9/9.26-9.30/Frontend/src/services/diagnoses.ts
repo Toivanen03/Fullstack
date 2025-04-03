@@ -13,8 +13,8 @@ const getAll = async () => {
 const getById = async (code: string) => {
   return await axios.get<Diagnosis>(
     `${apiBaseUrl}/diagnoses/${code}`
-  )
-}
+  );
+};
 
 export default {
   getAll, getById
